@@ -1,6 +1,6 @@
 class Contact < ActiveRecord::Base
   validates :name, :email, :user_id, presence: true
-  validate :user_id_email_combo_validation
+  validates :user_id, uniqueness: { scope: :email }
 
   belongs_to :owner, dependent: :destroy,
     class_name: "User",
@@ -13,11 +13,14 @@ class Contact < ActiveRecord::Base
     through: :contact_shares,
     source: :user
 
-  private
-  def user_id_email_combo_validation
-    contact = Contact.find_by(user_id: user_id, email: email)
-    if contact
-      errors[:user_id_and_email_combo] << "already exists"
-    end
-  end
+  # Not needed:
+  # uniqueness: { scope: ___ } takes care of combo uniqueness
+
+  # private
+  # def user_id_email_combo_validation
+  #   contact = Contact.find_by(user_id: user_id, email: email)
+  #   if contact
+  #     errors[:user_id_and_email_combo] << "already exists"
+  #   end
+  # end
 end

@@ -8,4 +8,8 @@ class User < ActiveRecord::Base
   has_many :shared_contacts,
     through: :contact_shares,
     source: :contact
+
+  def all_contacts
+    contacts + shared_contacts
+  end
 end

@@ -16,22 +16,29 @@ class UsersController < ApplicationController
 
   def show
     user = User.find(params[:id])
-    if user
-      render json: user
-    else
-      render json: user.errors.full_messages,
-        status: :unprocessable_entity
-    end
+    render json: user
+    # Not needed:
+    # if user not found, 404 error automatically from find
+    # if user
+    #   render json: user
+    # else
+    #   render json: user.errors.full_messages,
+    #     status: :unprocessable_entity
+    # end
   end
 
   def destroy
     user = User.find(params[:id])
-    if user.destroy
-      render json: user
-    else
-      render json: user.errors.full_messages,
-        status: :unprocessable_entity
-    end
+    user.destroy
+    render json: user
+    # Not needed:
+    # if user not found, 404 error automatically from find
+    # if user.destroy
+    #   render json: user
+    # else
+    #   render json: user.errors.full_messages,
+    #     status: :unprocessable_entity
+    # end
   end
 
   def update
@@ -43,8 +50,6 @@ class UsersController < ApplicationController
         status: :unprocessable_entity
     end
   end
-
-
 
   private
 

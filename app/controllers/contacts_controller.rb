@@ -1,7 +1,8 @@
 class ContactsController < ApplicationController
   def index
-    contacts = Contact.all
-    render json: contacts
+    user = User.find(params[:user_id])
+
+    render json: user.all_contacts
   end
 
   def create
@@ -16,32 +17,40 @@ class ContactsController < ApplicationController
 
   def show
     contact = Contact.find(params[:id])
-    if contact
-      render json: contact
-    else
-      render json: contact.errors.full_messages,
-        status: :unprocessable_entity
-    end
+    render json: contact
+
+    # if contact
+    #   render json: contact
+    # else
+    #   render json: contact.errors.full_messages,
+    #     status: :unprocessable_entity
+    # end
   end
 
   def destroy
     contact = Contact.find(params[:id])
-    if contact.destroy
-      render json: contact
-    else
-      render json: contact.errors.full_messages,
-        status: :unprocessable_entity
-    end
+    contact.destroy
+    render json: contact
+
+    # if contact.destroy
+    #   render json: contact
+    # else
+    #   render json: contact.errors.full_messages,
+    #     status: :unprocessable_entity
+    # end
   end
 
   def update
     contact = Contact.find(params[:id])
-    if contact.update(contact_params)
-      render json: contact
-    else
-      render json: contact.errors.full_messages,
-        status: :unprocessable_entity
-    end
+    contact.update(contact_params)
+    render json: contact
+
+    # if contact.update(contact_params)
+    #   render json: contact
+    # else
+    #   render json: contact.errors.full_messages,
+    #     status: :unprocessable_entity
+    # end
   end
 
   private
