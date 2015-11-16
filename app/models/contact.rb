@@ -2,7 +2,7 @@ class Contact < ActiveRecord::Base
   validates :name, :email, :user_id, presence: true
   validate :user_id_email_combo_validation
 
-  belongs_to :owner,
+  belongs_to :owner, dependent: :destroy,
     class_name: "User",
     primary_key: :id,
     foreign_key: :user_id
