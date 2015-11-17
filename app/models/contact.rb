@@ -13,6 +13,8 @@ class Contact < ActiveRecord::Base
     through: :contact_shares,
     source: :user
 
+  has_many :comments, as: :commentable
+
   # Not needed:
   # uniqueness: { scope: ___ } takes care of combo uniqueness
 
