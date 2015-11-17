@@ -51,6 +51,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def favorite_contacts
+    user = User.find(params[:id])
+    render json: user.favorite_contacts
+  end
+
   private
 
   def user_params

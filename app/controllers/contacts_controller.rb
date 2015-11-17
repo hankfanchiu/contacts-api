@@ -1,7 +1,6 @@
 class ContactsController < ApplicationController
   def index
     user = User.find(params[:user_id])
-
     render json: user.all_contacts
   end
 
@@ -51,6 +50,11 @@ class ContactsController < ApplicationController
     #   render json: contact.errors.full_messages,
     #     status: :unprocessable_entity
     # end
+  end
+
+  def favoritors
+    contact = Contact.find(params[:id])
+    render json: contact.favoritors
   end
 
   private
