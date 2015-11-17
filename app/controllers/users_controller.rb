@@ -52,8 +52,13 @@ class UsersController < ApplicationController
   end
 
   def favorite_contacts
-    user = User.find(params[:id])
+    user = User.find(params[:user_id])
     render json: user.favorite_contacts
+  end
+
+  def grouped_contacts
+    user = User.find(params[:user_id])
+    render json: user.grouped_contacts
   end
 
   private
