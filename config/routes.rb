@@ -4,8 +4,8 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :create, :show, :update, :destroy] do
     resources :contacts, only: :index
 
-    get 'contacts/groups', to: "user#contact_groups"
-    get 'contacts/favorites', to: "user#favorite_contacts"
+    get 'contacts/groups', to: "users#contact_groups"
+    get 'contacts/favorites', to: "users#favorite_contacts"
 
     resources :comments, only: :index
   end
