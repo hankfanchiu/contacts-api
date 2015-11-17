@@ -2,9 +2,11 @@ Rails.application.routes.draw do
   root to: 'users#index'
 
   resources :users, only: [:index, :create, :show, :update, :destroy] do
-    get 'contacts/groups', to: "users#grouped_contacts"
-    get 'contacts/favorites', to: "users#favorite_contacts"
     resources :contacts, only: :index
+
+    get 'contacts/groups', to: "user#contact_groups"
+    get 'contacts/favorites', to: "user#favorite_contacts"
+
     resources :comments, only: :index
   end
 
