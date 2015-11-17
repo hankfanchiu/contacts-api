@@ -24,6 +24,11 @@ class Contact < ActiveRecord::Base
     through: :contact_favorites,
     source: :favoritor
 
+  has_many :groups,
+    class_name: "ContactGroup"
+
+
+
   # Not needed:
   # uniqueness: { scope: ___ } takes care of combo uniqueness
 

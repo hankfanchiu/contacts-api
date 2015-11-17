@@ -20,6 +20,13 @@ class User < ActiveRecord::Base
     through: :contact_favorites,
     source: :favorite_contact
 
+  has_many :groups,
+    class_name: "ContactGroup"
+
+  has_many :grouped_contacts,
+    through: :groups,
+    source: :contact
+
   def all_contacts
     contacts + shared_contacts
   end
