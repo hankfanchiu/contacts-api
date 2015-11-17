@@ -1,7 +1,12 @@
 class ContactGroup < ActiveRecord::Base
-  validates :user_id, :contact_id, presence: true
-  validates :user_id, uniqueness: { scope: :contact_id }
+  validates :contact_groupable_id, :user_id, presence: true
+  validates :contact_groupable_id, uniqueness: { scope: :user_id }
 
   belongs_to :user
-  belongs_to :contact
+
+  has_many :contact_groupables, dependent: :destroy
+
+  has_many :contacts,
+    through: :contact_groupables,
+    source: :contact
 end

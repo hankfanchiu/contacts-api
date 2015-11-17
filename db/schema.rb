@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151117012750) do
+ActiveRecord::Schema.define(version: 20151117032903) do
 
   create_table "comments", force: :cascade do |t|
     t.text     "text",             null: false
@@ -23,14 +23,32 @@ ActiveRecord::Schema.define(version: 20151117012750) do
 
   add_index "comments", ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
 
-  create_table "contact_groups", force: :cascade do |t|
+  create_table "contact_favorites", force: :cascade do |t|
     t.integer  "user_id",    null: false
     t.integer  "contact_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_index "contact_groups", ["user_id", "contact_id"], name: "index_contact_groups_on_user_id_and_contact_id", unique: true
+  add_index "contact_favorites", ["user_id", "contact_id"], name: "index_contact_favorites_on_user_id_and_contact_id", unique: true
+
+  create_table "contact_groupables", force: :cascade do |t|
+    t.integer  "contact_id",       null: false
+    t.integer  "contact_group_id", null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "contact_groupables", ["contact_id", "contact_group_id"], name: "index_contact_groupables_on_contact_id_and_contact_group_id", unique: true
+
+  create_table "contact_groups", force: :cascade do |t|
+    t.integer  "user_id",              null: false
+    t.integer  "contact_groupable_id", null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "contact_groups", ["user_id", "contact_groupable_id"], name: "index_contact_groups_on_user_id_and_contact_groupable_id", unique: true
 
   create_table "contact_shares", force: :cascade do |t|
     t.integer  "contact_id", null: false
@@ -55,15 +73,6 @@ ActiveRecord::Schema.define(version: 20151117012750) do
   add_index "contacts", ["email"], name: "index_contacts_on_email"
   add_index "contacts", ["name"], name: "index_contacts_on_name"
   add_index "contacts", ["user_id"], name: "index_contacts_on_user_id"
-
-  create_table "favorite_contacts", force: :cascade do |t|
-    t.integer  "user_id",    null: false
-    t.integer  "contact_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "favorite_contacts", ["user_id", "contact_id"], name: "index_favorite_contacts_on_user_id_and_contact_id", unique: true
 
   create_table "users", force: :cascade do |t|
     t.string   "username",   null: false

@@ -1,42 +1,30 @@
 class Contact < ActiveRecord::Base
-  validates :name, :email, :user_id, presence: true
-  validates :user_id, uniqueness: { scope: :email }
+  validates :email, :name, :user_id, presence: true
+  validates :email, uniqueness: { scope: :user_id }
 
-  belongs_to :owner, dependent: :destroy,
+  belongs_to :owner,
     class_name: "User",
     primary_key: :id,
     foreign_key: :user_id
 
-  has_many :contact_shares
+  has_many :contact_shares, dependent: :destroy
 
   has_many :shared_users,
     through: :contact_shares,
     source: :user
 
-  has_many :comments, as: :commentable
+  has_many :comments, as: :commentable, dependent: :destroy
 
-  has_many :contact_favorites,
-    class_name: "FavoriteContact",
-    primary_key: :id,
+  has_many :contact_favorites, dependent: :destroy,
     foreign_key: :contact_id
 
   has_many :favoritors,
     through: :contact_favorites,
     source: :favoritor
 
-  has_many :groups,
-    class_name: "ContactGroup"
+  has_many :contact_groupables, dependent: :destroy
 
-
-
-  # Not needed:
-  # uniqueness: { scope: ___ } takes care of combo uniqueness
-
-  # private
-  # def user_id_email_combo_validation
-  #   contact = Contact.find_by(user_id: user_id, email: email)
-  #   if contact
-  #     errors[:user_id_and_email_combo] << "already exists"
-  #   end
-  # end
+  has_many :contact_groups,
+    through: :contact_groupables,
+    source: :contact_group
 end

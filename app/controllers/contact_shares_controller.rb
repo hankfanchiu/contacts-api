@@ -13,12 +13,6 @@ class ContactSharesController < ApplicationController
     contact_share = ContactShare.find(params[:id])
     contact_share.destroy
     render json: contact_share
-    # if contact_share.destroy
-    #   render json: contact_share
-    # else
-    #   render json: contact_share.errors.full_messages,
-    #     status: :unprocessable_entity
-    # end
   end
 
   private
