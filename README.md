@@ -1,6 +1,6 @@
 # Contacts API
 
-An App Academy project to learn Rails controllers and routes.
+An App Academy project to learn about Rails controllers and routes.
 
 ## Structure
 
@@ -8,4 +8,7 @@ An App Academy project to learn Rails controllers and routes.
 - A user can have favorite contacts (owned or shared), as well as groups of contacts.
 - Either a user or a contact can be commented.
 
-Custom routes under /contacts to navigate to a user's grouped contacts (/contacts/groups) and to a user's favorite contacts (/contacts/favorites).
+### Custom routes:
+
+- `/contacts/groups` to navigate to a user's grouped contacts
+- `/contacts/favorites` to navigate to a user's favorite contacts
