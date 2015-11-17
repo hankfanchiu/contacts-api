@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151117032903) do
+ActiveRecord::Schema.define(version: 20151117035309) do
 
   create_table "comments", force: :cascade do |t|
     t.text     "text",             null: false
@@ -30,7 +30,9 @@ ActiveRecord::Schema.define(version: 20151117032903) do
     t.datetime "updated_at", null: false
   end
 
+  add_index "contact_favorites", ["contact_id"], name: "index_contact_favorites_on_contact_id"
   add_index "contact_favorites", ["user_id", "contact_id"], name: "index_contact_favorites_on_user_id_and_contact_id", unique: true
+  add_index "contact_favorites", ["user_id"], name: "index_contact_favorites_on_user_id"
 
   create_table "contact_groupables", force: :cascade do |t|
     t.integer  "contact_id",       null: false
@@ -39,7 +41,9 @@ ActiveRecord::Schema.define(version: 20151117032903) do
     t.datetime "updated_at",       null: false
   end
 
+  add_index "contact_groupables", ["contact_group_id"], name: "index_contact_groupables_on_contact_group_id"
   add_index "contact_groupables", ["contact_id", "contact_group_id"], name: "index_contact_groupables_on_contact_id_and_contact_group_id", unique: true
+  add_index "contact_groupables", ["contact_id"], name: "index_contact_groupables_on_contact_id"
 
   create_table "contact_groups", force: :cascade do |t|
     t.integer  "user_id",              null: false
@@ -48,7 +52,9 @@ ActiveRecord::Schema.define(version: 20151117032903) do
     t.datetime "updated_at",           null: false
   end
 
+  add_index "contact_groups", ["contact_groupable_id"], name: "index_contact_groups_on_contact_groupable_id"
   add_index "contact_groups", ["user_id", "contact_groupable_id"], name: "index_contact_groups_on_user_id_and_contact_groupable_id", unique: true
+  add_index "contact_groups", ["user_id"], name: "index_contact_groups_on_user_id"
 
   create_table "contact_shares", force: :cascade do |t|
     t.integer  "contact_id", null: false
