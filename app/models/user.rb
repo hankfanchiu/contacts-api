@@ -11,6 +11,15 @@ class User < ActiveRecord::Base
 
   has_many :comments, as: :commentable
 
+  has_many :contact_favorites,
+    class_name: "FavoriteContact",
+    primary_key: :id,
+    foreign_key: :user_id
+
+  has_many :favorite_contacts,
+    through: :contact_favorites,
+    source: :favorite_contact
+
   def all_contacts
     contacts + shared_contacts
   end

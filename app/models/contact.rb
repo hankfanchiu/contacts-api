@@ -15,6 +15,15 @@ class Contact < ActiveRecord::Base
 
   has_many :comments, as: :commentable
 
+  has_many :contact_favorites,
+    class_name: "FavoriteContact",
+    primary_key: :id,
+    foreign_key: :contact_id
+
+  has_many :favoritors,
+    through: :contact_favorites,
+    source: :favoritor
+
   # Not needed:
   # uniqueness: { scope: ___ } takes care of combo uniqueness
 
