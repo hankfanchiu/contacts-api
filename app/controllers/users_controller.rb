@@ -42,7 +42,7 @@ class UsersController < ApplicationController
 
   def contact_groups
     user = User.find(params[:user_id])
-    render json: user.contact_groups
+    render json: user.grouped_contacts
   end
 
   private

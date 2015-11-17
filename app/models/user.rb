@@ -20,19 +20,11 @@ class User < ActiveRecord::Base
 
   has_many :contact_groups, dependent: :destroy
 
-  has_many :contact_groupables,
-    through: :contact_groups,
-    source: :contact_groupables
-
-  has_many :grouped_contacts,
-    through: :contact_groupables,
-    source: :contact
-
   def all_contacts
     contacts + shared_contacts
   end
 
-  def contact_groups
+  def grouped_contacts
     contact_groups.map { |group| group.contacts }
   end
 end
